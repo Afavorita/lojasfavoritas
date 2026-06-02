@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lojas Favoritas – A loja favorita da sua família!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red:     #D62B2B;
+      --red-dk:  #b01f1f;
+      --yellow:  #FFD600;
+      --dark:    #111111;
+      --dark2:   #1e1e1e;
+      --white:   #ffffff;
+      --gray:    #f5f5f5;
+      --text:    #1a1a1a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: var(--dark);
+      color: #ccc;
+      font-size: .8rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: .45rem 1rem;
+    }
+    .topbar a { color: #ccc; text-decoration: none; }
+    .topbar a:hover { color: var(--yellow); }
+    .topbar svg { width:16px; height:16px; vertical-align:middle; margin-right:4px; }
+
+    /* ── NAVBAR ── */
+    nav {
+      background: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .8rem 5%;
+      box-shadow: 0 2px 12px rgba(0,0,0,.3);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      height: 48px;
+      object-fit: contain;
+    }
+    /* Fallback placeholder if image not found */
+    .nav-logo .logo-placeholder {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .nav-logo .logo-placeholder .icon {
+      width: 42px; height: 42px;
+      background: var(--red);
+      border-radius: 50%;
+      display: flex; align-items:center; justify-content:center;
+      font-size:1.4rem;
+    }
+    .nav-logo .logo-placeholder span {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: var(--red);
+      letter-spacing: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 700;
+      color: rgba(255,255,255,.85);
+      font-size: .95rem;
+      position: relative;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-links a::after {
+      content:'';
+      position:absolute; bottom:-4px; left:0; right:0;
+      height:2px; background:var(--yellow);
+      transform:scaleX(0);
+      transition:transform .25s;
+    }
+    .nav-links a:hover::after { transform:scaleX(1); }
+    .nav-social { display:flex; gap:.7rem; }
+    .nav-social a {
+      width:34px; height:34px; border-radius:50%;
+      background: var(--dark);
+      display:flex; align-items:center; justify-content:center;
+      color:#fff; text-decoration:none;
+      transition: background .2s, transform .2s;
+    }
+    .nav-social a:hover { background: var(--red); transform:scale(1.1); }
+    .nav-social svg { width:16px; height:16px; fill:#fff; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 520px;
+      background: linear-gradient(135deg, var(--dark) 0%, var(--red) 55%, var(--yellow) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4rem 8%;
+      position: relative;
+      overflow: hidden;
+      gap: 2rem;
+    }
+    .hero::before {
+      content:'';
+      position:absolute; inset:0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+    }
+    .hero-content { position:relative; z-index:1; max-width:560px; }
+    .hero-mascot {
+      position: relative; z-index:1;
+      flex-shrink:0;
+      width: clamp(200px, 30vw, 380px);
+      animation: floatMascot 3s ease-in-out infinite;
+    }
+    .hero-mascot img {
+      width:100%;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,.25));
+    }
+    @keyframes floatMascot {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-14px); }
+    }
+    .hero-content h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      color: var(--white);
+      line-height: 1;
+      letter-spacing: 3px;
+      text-shadow: 0 4px 20px rgba(0,0,0,.2);
+      animation: fadeUp .7s ease both;
+    }
+    .hero-content p {
+      color: rgba(255,255,255,.9);
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      margin: 1rem 0 2rem;
+      font-weight: 600;
+      animation: fadeUp .7s .15s ease both;
+    }
+    .hero-btn {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--dark);
+      font-weight: 900;
+      font-size: 1.1rem;
+      padding: .85rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 6px 24px rgba(0,0,0,.2);
+      transition: transform .2s, box-shadow .2s;
+      animation: fadeUp .7s .3s ease both;
+    }
+    .hero-btn:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(0,0,0,.25); }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(24px); }
+      to   { opacity:1; transform:translateY(0);    }
+    }
+
+    /* ── NÚMEROS ── */
+    .numbers {
+      background: var(--dark);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .number-item {
+      flex: 1 1 180px;
+      text-align: center;
+      padding: 2.2rem 1rem;
+      border-right: 1px solid rgba(255,255,255,.08);
+      transition: background .25s;
+    }
+    .number-item:last-child { border-right: none; }
+    .number-item:hover { background: rgba(255,255,255,.04); }
+    .number-item .num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: var(--yellow);
+      line-height: 1;
+    }
+    .number-item p { color: rgba(255,255,255,.7); font-size: .9rem; margin-top:.3rem; }
+
+    /* ── SECTION GENERIC ── */
+    section { padding: 5rem 5%; }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--dark);
+      text-align: center;
+      letter-spacing: 2px;
+      margin-bottom: .5rem;
+    }
+    .section-title span { color: var(--red); }
+    .section-sub {
+      text-align:center;
+      color: #777;
+      font-size: .95rem;
+      margin-bottom: 3rem;
+    }
+    .divider {
+      width:60px; height:4px;
+      background: var(--red);
+      margin: .6rem auto 2.5rem;
+      border-radius:2px;
+    }
+
+    /* ── DESTAQUES / CARDS ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: var(--white);
+      border: 1px solid #eee;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform .25s, box-shadow .25s;
+      cursor: pointer;
+    }
+    .card:hover { transform:translateY(-6px); box-shadow: 0 16px 40px rgba(214,43,43,.15); }
+    .card-img {
+      width: 100%;
+      aspect-ratio: 1;
+      background: var(--gray);
+      display:flex; align-items:center; justify-content:center;
+      font-size: 3rem;
+    }
+    .card-body { padding: 1rem; }
+    .card-body h3 { font-size:1rem; font-weight:800; margin-bottom:.3rem; }
+    .card-body p  { font-size:.85rem; color:#777; }
+
+    /* ── LOJAS ── */
+    .lojas-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .lojas-img {
+      background: linear-gradient(135deg, #ffe5e5, #fff9c0);
+      border-radius: 24px;
+      aspect-ratio: 4/3;
+      display:flex; align-items:center; justify-content:center;
+      font-size:5rem;
+    }
+    .lojas-text h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem,4vw,3rem);
+      line-height:1.1;
+      margin-bottom:1rem;
+    }
+    .lojas-text h2 span { color:var(--red); }
+    .lojas-text p { color:#555; font-size:1rem; line-height:1.7; margin-bottom:1.5rem; }
+    .btn-pink {
+      display:inline-block;
+      background: var(--red);
+      color: #fff;
+      font-weight:800;
+      padding:.75rem 2rem;
+      border-radius:50px;
+      text-decoration:none;
+      transition:background .2s, transform .2s;
+    }
+    .btn-pink:hover { background: var(--red-dk); transform:translateY(-2px); }
+
+    /* ── PAGAMENTO ── */
+    .pag-bg { background: var(--gray); }
+    .pag-cards {
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:1.5rem;
+      margin-top:1rem;
+    }
+    .pag-card {
+      background:#fff;
+      border-radius:16px;
+      padding:2rem 2.5rem;
+      text-align:center;
+      width:200px;
+      box-shadow:0 4px 20px rgba(0,0,0,.06);
+      transition:transform .2s;
+    }
+    .pag-card:hover { transform:translateY(-4px); }
+    .pag-card .icon { font-size:2.5rem; margin-bottom:.7rem; }
+    .pag-card h3 { font-size:1rem; font-weight:800; color:var(--dark); margin-bottom:.4rem; }
+    .pag-card p  { font-size:.82rem; color:#777; }
+
+    /* ── QUEM SOMOS ── */
+    .quem-wrap {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:3rem;
+      align-items:center;
+    }
+    .quem-img {
+      background: linear-gradient(135deg, var(--red), var(--yellow));
+      border-radius:24px;
+      aspect-ratio:4/3;
+      display:flex; align-items:center; justify-content:center;
+      font-size:5rem;
+    }
+    .quem-text h2 {
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(2rem,4vw,3rem);
+      margin-bottom:1rem;
+    }
+    .quem-text h2 span { color:var(--red); }
+    .quem-text p { color:#555; line-height:1.8; margin-bottom:1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,.7);
+      padding: 3rem 5% 1.5rem;
+    }
+    .footer-grid {
+      display:grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap:2rem;
+      margin-bottom:2.5rem;
+    }
+    .footer-brand .logo-placeholder span { color: var(--yellow); }
+    .footer-brand p { margin-top:1rem; font-size:.88rem; line-height:1.7; }
+    .footer-social { display:flex; gap:.6rem; margin-top:1rem; }
+    .footer-social a {
+      width:34px;height:34px;border-radius:50%;
+      background:rgba(255,255,255,.1);
+      display:flex;align-items:center;justify-content:center;
+      color:#fff; text-decoration:none;
+      transition:background .2s;
+    }
+    .footer-social a:hover { background:var(--red); }
+    .footer-social svg { width:16px;height:16px;fill:#fff; }
+    .footer-col h4 {
+      font-size:.9rem;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      color:#fff;
+      margin-bottom:1rem;
+    }
+    .footer-col ul { list-style:none; }
+    .footer-col ul li { margin-bottom:.5rem; }
+    .footer-col ul a {
+      color:rgba(255,255,255,.6);
+      text-decoration:none;
+      font-size:.88rem;
+      transition:color .2s;
+    }
+    .footer-col ul a:hover { color:var(--yellow); }
+    .footer-bottom {
+      border-top:1px solid rgba(255,255,255,.1);
+      padding-top:1.2rem;
+      text-align:center;
+      font-size:.8rem;
+      color:rgba(255,255,255,.4);
+    }
+
+    /* ── SCROLL TO TOP ── */
+    #scrollTop {
+      position:fixed;
+      bottom:2rem; right:2rem;
+      width:44px;height:44px;
+      background:var(--red);
+      color:#fff; border:none; border-radius:50%;
+      font-size:1.3rem;
+      cursor:pointer;
+      box-shadow:0 4px 16px rgba(0,0,0,.2);
+      opacity:0; pointer-events:none;
+      transition:opacity .3s, transform .2s;
+      z-index:200;
+    }
+    #scrollTop.visible { opacity:1; pointer-events:all; }
+    #scrollTop:hover { transform:scale(1.1); }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:768px){
+      .nav-links { display:none; }
+      .hero { flex-direction:column; text-align:center; padding: 3rem 5%; }
+      .hero-mascot { width: clamp(150px, 55vw, 260px); }
+      .lojas-wrap, .quem-wrap { grid-template-columns:1fr; }
+      .footer-grid { grid-template-columns:1fr 1fr; }
+      .numbers { flex-wrap:wrap; }
+      .number-item { flex:1 1 40%; border-right:none; border-bottom:1px solid rgba(255,255,255,.08); }
+    }
+    @media(max-width:480px){
+      .footer-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a href="https://instagram.com" target="_blank">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    Instagram
+  </a>
+  <a href="https://facebook.com" target="_blank">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    Facebook
+  </a>
+  <a href="https://tiktok.com" target="_blank">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+    TikTok
+  </a>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="3310x110.png" alt="Lojas Favoritas"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+         style="height:52px;object-fit:contain;" />
+    <div class="logo-placeholder" style="display:none;">
+      <div class="icon" style="background:var(--red);">🐥</div>
+      <span style="color:var(--red);">LOJAS FAVORITAS</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#quem-somos">Quem Somos</a></li>
+    <li><a href="#lojas">Lojas</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <div class="nav-social">
+    <a href="https://instagram.com" target="_blank" title="Instagram">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <a href="https://facebook.com" target="_blank" title="Facebook">
+      <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </a>
+    <a href="https://tiktok.com" target="_blank" title="TikTok">
+      <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>A Loja Favorita<br>da Sua Família!</h1>
+    <p>Produtos de qualidade com o preço que você merece.<br>Sempre pertinho de você.</p>
+    <a href="#lojas" class="hero-btn">Encontre uma loja ↓</a>
+  </div>
+  <div class="hero-mascot">
+    <img src="Design_sem_nome.png" alt="Mascote Lojas Favoritas"
+         onerror="this.style.display='none'" />
+  </div>
+</section>
+
+<!-- NÚMEROS -->
+<div class="numbers">
+  <div class="number-item">
+    <div class="num">+10</div>
+    <p>Lojas</p>
+  </div>
+  <div class="number-item">
+    <div class="num">+200mil</div>
+    <p>Seguidores nas redes sociais</p>
+  </div>
+  <div class="number-item">
+    <div class="num">+1mil</div>
+    <p>Produtos</p>
+  </div>
+  <div class="number-item">
+    <div class="num">+500</div>
+    <p>Clientes por dia</p>
+  </div>
+</div>
+
+<!-- DESTAQUES -->
+<section id="destaques">
+  <h2 class="section-title">Em <span>Destaque</span></h2>
+  <div class="divider"></div>
+  <p class="section-sub">Confira os produtos mais amados pelos nossos clientes</p>
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-img">🛒</div>
+      <div class="card-body">
+        <h3>Mercearia</h3>
+        <p>Tudo que você precisa no dia a dia</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">🧴</div>
+      <div class="card-body">
+        <h3>Higiene & Beleza</h3>
+        <p>Cuidado pessoal com o melhor preço</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">🏠</div>
+      <div class="card-body">
+        <h3>Casa & Limpeza</h3>
+        <p>Sua casa sempre limpa e organizada</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">🍬</div>
+      <div class="card-body">
+        <h3>Doces & Snacks</h3>
+        <p>Variedade para todos os gostos</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOJAS -->
+<section id="lojas" style="background:var(--gray);">
+  <div class="lojas-wrap">
+    <div class="lojas-img">📍</div>
+    <div class="lojas-text">
+      <h2>Sempre tem uma<br><span>A Favorita</span> perto de você</h2>
+      <p>Com unidades espalhadas pela cidade, garantimos que você sempre tenha acesso à qualidade e ao preço justo que nossa marca oferece. Continuamos expandindo para chegar cada vez mais perto de você!</p>
+      <a href="#contato" class="btn-pink">Encontre uma loja →</a>
+    </div>
+  </div>
+</section>
+
+<!-- QUEM SOMOS -->
+<section id="quem-somos">
+  <div class="quem-wrap">
+    <div class="quem-text">
+      <h2>Conheça a nossa<br><span>história</span></h2>
+      <p>A Favorita nasceu com o sonho de oferecer o melhor para as famílias brasileiras: produtos de qualidade a preços acessíveis e um atendimento que faz você se sentir em casa.</p>
+      <p>Ao longo dos anos, construímos uma relação de confiança com nossos clientes, e hoje somos orgulhosamente a loja favorita de muitas famílias.</p>
+      <a href="#contato" class="btn-pink">Saiba mais →</a>
+    </div>
+    <div class="quem-img">⭐</div>
+  </div>
+</section>
+
+<!-- PAGAMENTO -->
+<section class="pag-bg">
+  <h2 class="section-title">Formas de <span>Pagamento</span></h2>
+  <div class="divider"></div>
+  <p class="section-sub">Facilidade e praticidade na hora de pagar. Escolha a melhor opção para você.</p>
+  <div class="pag-cards">
+    <div class="pag-card">
+      <div class="icon">💵</div>
+      <h3>Dinheiro</h3>
+      <p>Pagamento à vista em todas as lojas</p>
+    </div>
+    <div class="pag-card">
+      <div class="icon">💳</div>
+      <h3>Cartão de Crédito</h3>
+      <p>Parcele em até 5x sem juros</p>
+    </div>
+    <div class="pag-card">
+      <div class="icon">💳</div>
+      <h3>Cartão de Débito</h3>
+      <p>Aceito em todas as bandeiras</p>
+    </div>
+    <div class="pag-card">
+      <div class="icon">📱</div>
+      <h3>Pix</h3>
+      <p>Rápido, fácil e sem taxas</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <h2 class="section-title">Entre em <span>Contato</span></h2>
+  <div class="divider"></div>
+  <p class="section-sub">Estamos aqui para te ajudar. Fale com a gente!</p>
+  <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-top:1rem;">
+    <a href="https://wa.me/55" target="_blank" class="btn-pink" style="display:flex;align-items:center;gap:.5rem;">
+      📲 WhatsApp
+    </a>
+    <a href="mailto:contato@afavorita.com.br" class="btn-pink" style="display:flex;align-items:center;gap:.5rem;background:#555;">
+      ✉️ E-mail
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-placeholder">
+        <img src="3310x110.png" alt="Lojas Favoritas" style="height:36px;filter:invert(1);opacity:.85;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='inline';" />
+        <span style="display:none;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--yellow);letter-spacing:2px;">LOJAS FAVORITAS</span>
+      </div>
+      <p>A loja favorita da sua família. Qualidade, preço justo e carinho em cada atendimento.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="https://facebook.com" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="https://tiktok.com" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navegação</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#quem-somos">Quem Somos</a></li>
+        <li><a href="#lojas">Lojas</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Atendimento</h4>
+      <ul>
+        <li><a href="#">WhatsApp</a></li>
+        <li><a href="#">E-mail</a></li>
+        <li><a href="#">Horário: 8h–20h</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Siga a gente</h4>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">TikTok</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Lojas Favoritas – Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<!-- SCROLL TO TOP -->
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  const btn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  });
+</script>
+
+</body>
+</html>
