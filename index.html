@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lojas Favoritas – A loja favorita da sua família!</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700;900&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
   <style>
     :root {
       --red:     #D62B2B;
@@ -188,33 +188,146 @@
       to   { opacity:1; transform:translateY(0);    }
     }
 
+    /* ── CARDS PROMOCIONAIS ── */
+    .promo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      padding: 8px;
+      background: #f5f5f5;
+    }
+    .promo-card {
+      border-radius: 14px;
+      padding: .75rem .9rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      aspect-ratio: 1.6 / 1;
+      cursor: pointer;
+      transition: filter .2s;
+      overflow: hidden;
+    }
+    .promo-card:hover { filter: brightness(1.08); }
+    .promo-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(1.1rem, 2.2vw, 1.8rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.05;
+      letter-spacing: -.5px;
+      margin-bottom: .25rem;
+      text-transform: lowercase;
+      word-break: break-word;
+    }
+    .promo-sub {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(.65rem, 1vw, .82rem);
+      color: rgba(255,255,255,.85);
+      font-weight: 600;
+      line-height: 1.3;
+      text-transform: lowercase;
+    }
+    @media(max-width:640px){
+      .promo-grid { grid-template-columns: repeat(2, 1fr); }
+      .promo-card { aspect-ratio: 1.4 / 1; }
+    }
+
+    /* ── TIKTOK BANNER ── */
+    .tiktok-banner {
+      display: flex;
+      align-items: center;
+      background: var(--yellow);
+      padding: .9rem 3%;
+      gap: 1.2rem;
+      text-decoration: none;
+      transition: filter .2s;
+    }
+    .tiktok-banner:hover { filter: brightness(.97); }
+    .tiktok-banner-logo {
+      height: clamp(44px, 6vw, 70px);
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .tiktok-banner-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+      flex-shrink: 0;
+    }
+    .tiktok-banner-text strong {
+      font-size: clamp(1rem, 2.2vw, 1.5rem);
+      color: var(--dark);
+      font-weight: 900;
+    }
+    .tiktok-banner-text span {
+      font-size: clamp(.72rem, 1.2vw, .9rem);
+      color: rgba(0,0,0,.55);
+      font-weight: 600;
+    }
+    .tiktok-banner-image {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+    }
+    .tiktok-banner-image img {
+      max-height: 70px;
+      object-fit: contain;
+    }
+    .tiktok-banner-btn {
+      background: var(--red);
+      color: #fff;
+      font-weight: 900;
+      font-size: clamp(.85rem, 1.3vw, 1rem);
+      padding: .72rem 1.8rem;
+      border-radius: 8px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background .2s;
+    }
+    .tiktok-banner:hover .tiktok-banner-btn { background: var(--red-dk); }
+    @media(max-width:560px){
+      .tiktok-banner { flex-wrap: wrap; justify-content: center; text-align: center; }
+      .tiktok-banner-image { width: 100%; }
+    }
+
     /* ── CATEGORIAS ── */
     .categorias-section {
-      background: var(--yellow);
-      padding: 1.8rem 3%;
+      background: #fff;
+      padding: 1.2rem 2% 1.4rem;
     }
+    .cat-title {
+      font-size: clamp(.95rem, 1.8vw, 1.15rem);
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: .9rem;
+    }
+    .cat-title strong { color: var(--red); }
     .categorias-track-wrap { position: relative; }
     .categorias-track {
       display: grid;
       grid-template-columns: repeat(8, 1fr);
-      gap: .5rem;
+      gap: .4rem;
     }
     .cat-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: .5rem;
+      gap: .45rem;
       cursor: pointer;
-      padding: .5rem;
-      border-radius: 16px;
+      padding: .4rem .2rem;
+      border-radius: 12px;
       transition: background .2s;
     }
-    .cat-item:hover { background: rgba(0,0,0,.06); }
+    .cat-item:hover { background: rgba(0,0,0,.04); }
     .cat-img {
       width: 100%;
       aspect-ratio: 1;
-      background: transparent;
-      border-radius: 14px;
+      background: var(--yellow);
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -222,32 +335,32 @@
       transition: transform .2s;
     }
     .cat-img img {
-      width: 85%;
-      height: 85%;
+      width: 76%;
+      height: 76%;
       object-fit: contain;
-      mix-blend-mode: multiply;
     }
     .cat-item:hover .cat-img { transform: translateY(-3px); }
     .cat-label {
-      font-size: .78rem;
+      font-size: .7rem;
       font-weight: 800;
-      color: var(--dark);
+      color: #333;
       text-align: center;
+      line-height: 1.2;
     }
     .cat-arrow { display: none; }
 
-    @media(max-width: 768px) {
+    @media(max-width:768px){
       .categorias-track {
         display: flex;
         overflow-x: auto;
         scroll-behavior: smooth;
         scrollbar-width: none;
-        gap: .8rem;
-        padding-bottom: .5rem;
+        gap: .7rem;
+        padding-bottom: .4rem;
       }
       .categorias-track::-webkit-scrollbar { display: none; }
-      .cat-item { flex-shrink: 0; width: 90px; }
-      .cat-img { width: 90px; height: 90px; }
+      .cat-item { flex-shrink: 0; width: 78px; }
+      .cat-img { width: 78px; height: 78px; border-radius: 14px; }
     }
 
 
@@ -275,59 +388,6 @@
       background: var(--red);
       margin: .6rem auto 2.5rem;
       border-radius:2px;
-    }
-
-    /* ── ONDE COMPRAR ── */
-    .onde-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      max-width: 860px;
-      margin: 0 auto;
-    }
-    .onde-card {
-      border-radius: 20px;
-      padding: 2rem 2rem 1.8rem;
-      display: flex;
-      flex-direction: column;
-      gap: .8rem;
-    }
-    .onde-card.online {
-      background: var(--dark);
-      color: #fff;
-    }
-    .onde-card.presencial {
-      background: var(--yellow);
-      color: var(--dark);
-    }
-    .onde-card .onde-icon { font-size: 2.4rem; }
-    .onde-card h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem;
-      letter-spacing: 1px;
-      line-height: 1.1;
-    }
-    .onde-card.online h3 { color: var(--yellow); }
-    .onde-card.presencial h3 { color: var(--red); }
-    .onde-card p { font-size: .95rem; line-height: 1.7; }
-    .onde-card.online p { color: rgba(255,255,255,.8); }
-    .onde-card.presencial p { color: #333; }
-    .onde-card .onde-badge {
-      display: inline-block;
-      background: var(--red);
-      color: #fff;
-      font-size: .8rem;
-      font-weight: 800;
-      padding: .35rem 1rem;
-      border-radius: 50px;
-      align-self: flex-start;
-      margin-top: .3rem;
-    }
-    .onde-card.presencial .onde-badge {
-      background: var(--red);
-    }
-    @media(max-width:600px){
-      .onde-wrap { grid-template-columns: 1fr; }
     }
 
     /* ── LOJAS ── */
@@ -395,6 +455,7 @@
       transition: color .2s;
     }
     .loja-map-btn:hover { color: var(--red-dk); }
+
 
     /* ── QUEM SOMOS ── */
     .quem-wrap {
@@ -557,66 +618,80 @@
   </div>
 </section>
 
+<!-- CARDS PROMOCIONAIS -->
+<div class="promo-grid">
+  <div class="promo-card" style="background:#C8102E;">
+    <span class="promo-label">torcida<br>favoritas</span>
+    <span class="promo-sub">para quem ama copa</span>
+  </div>
+  <div class="promo-card" style="background:#8B1A1A;">
+    <span class="promo-label">arraiá</span>
+    <span class="promo-sub">porque amamos<br>comemorar São João</span>
+  </div>
+  <div class="promo-card" style="background:#6B2D2D;">
+    <span class="promo-sub">tudo para</span>
+    <span class="promo-label">facilitar o dia a dia</span>
+    <span class="promo-sub">da dona de casa</span>
+  </div>
+  <div class="promo-card" style="background:#3D1515;">
+    <span class="promo-label">inverno</span>
+    <span class="promo-sub">para aproveitar<br>muito bem o friozinho</span>
+  </div>
+</div>
+
+<!-- TIKTOK SHOP BANNER -->
+<a href="https://tiktok.com/@lojasfavoritas" target="_blank" class="tiktok-banner">
+  <img src="assets/9.png" alt="TikTok Shop" class="tiktok-banner-logo">
+  <div class="tiktok-banner-text">
+    <strong>chegamos no digital</strong>
+    <span>para te atender melhor!</span>
+  </div>
+  <div class="tiktok-banner-image">
+    <!-- adicione aqui a imagem promocional: <img src="assets/banner-promo.png" alt=""> -->
+  </div>
+  <div class="tiktok-banner-btn">aproveite</div>
+</a>
+
 <!-- CATEGORIAS -->
 <div class="categorias-section">
+  <p class="cat-title">a Favorita tem <strong>tuuuudo</strong> para sua casa</p>
   <div class="categorias-track-wrap">
     <div class="categorias-track" id="catTrack">
       <div class="cat-item">
-        <div class="cat-img"><img src="assets/VTR310.1.webp" alt="Ventiladores"></div>
+        <div class="cat-img"><img src="assets/1.png" alt="Ventiladores"></div>
         <span class="cat-label">Ventiladores</span>
       </div>
       <div class="cat-item">
-        <div class="cat-img"><img src="assets/7460241013_1SZ.webp" alt="Panelas e Frigideiras"></div>
-        <span class="cat-label">Panelas e Frigideiras</span>
-      </div>
-      <div class="cat-item">
-        <div class="cat-img"><img src="assets/61hzuoXwjqL.jpg" alt="Informática"></div>
-        <span class="cat-label">Informática</span>
-      </div>
-      <div class="cat-item">
-        <div class="cat-img"><img src="assets/26600_49083-jogo-de-ferramentas-110-peas-com-maleta-maferpro_z1_639154796859279916.webp" alt="Ferramentas"></div>
-        <span class="cat-label">Ferramentas</span>
-      </div>
-      <div class="cat-item">
-        <div class="cat-img"><img src="assets/varal_chao_maxi_6009_mor_1.webp" alt="Utilidades Domésticas"></div>
+        <div class="cat-img"><img src="assets/2.png" alt="Utilidades Domésticas"></div>
         <span class="cat-label">Utilidades Domésticas</span>
       </div>
       <div class="cat-item">
-        <div class="cat-img"><img src="assets/110233-1.webp" alt="Praia"></div>
-        <span class="cat-label">Praia</span>
-      </div>
-      <div class="cat-item">
-        <div class="cat-img"><img src="assets/banheiro.webp" alt="Banheiro"></div>
+        <div class="cat-img"><img src="assets/3.png" alt="Banheiro"></div>
         <span class="cat-label">Banheiro</span>
       </div>
       <div class="cat-item">
-        <div class="cat-img"><img src="assets/material.jpg" alt="Material"></div>
-        <span class="cat-label">Material</span>
+        <div class="cat-img"><img src="assets/4.png" alt="Ferramentas"></div>
+        <span class="cat-label">Ferramentas</span>
+      </div>
+      <div class="cat-item">
+        <div class="cat-img"><img src="assets/5.png" alt="Material Escolar"></div>
+        <span class="cat-label">Material Escolar</span>
+      </div>
+      <div class="cat-item">
+        <div class="cat-img"><img src="assets/6.png" alt="Praia"></div>
+        <span class="cat-label">Praia</span>
+      </div>
+      <div class="cat-item">
+        <div class="cat-img"><img src="assets/7.png" alt="Informática"></div>
+        <span class="cat-label">Informática</span>
+      </div>
+      <div class="cat-item">
+        <div class="cat-img"><img src="assets/8.png" alt="Panelas e Frigideiras"></div>
+        <span class="cat-label">Panelas e Frigideiras</span>
       </div>
     </div>
   </div>
 </div>
-
-<!-- ONDE COMPRAR -->
-<section id="onde-comprar">
-  <h2 class="section-title">Onde <span>Comprar</span></h2>
-  <div class="divider"></div>
-  <p class="section-sub">Escolha a forma que for mais fácil pra você</p>
-  <div class="onde-wrap">
-    <div class="onde-card online">
-      <div class="onde-icon">📱</div>
-      <h3>Compras Online</h3>
-      <p>Nossas vendas online estão sendo realizadas pelo <strong>TikTok Shop</strong>. Acesse nossa loja, escolha seus produtos e receba em casa com praticidade!</p>
-      <a href="https://tiktok.com/@lojasfavoritas" target="_blank" class="onde-badge">Comprar no TikTok Shop →</a>
-    </div>
-    <div class="onde-card presencial">
-      <div class="onde-icon">🏪</div>
-      <h3>Lojas Presenciais</h3>
-      <p>Visite uma de nossas unidades e aproveite a experiência completa. Compras a partir de <strong>R$&nbsp;100</strong> parcelamos em até <strong>6x sem juros</strong> no cartão!</p>
-      <a href="#lojas" class="onde-badge">Ver endereços →</a>
-    </div>
-  </div>
-</section>
 
 <!-- LOJAS -->
 <section id="lojas" style="background:var(--gray);">
