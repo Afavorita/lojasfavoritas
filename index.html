@@ -188,30 +188,68 @@
       to   { opacity:1; transform:translateY(0);    }
     }
 
-    /* ── NÚMEROS ── */
-    .numbers {
+    /* ── CATEGORIAS ── */
+    .categorias-section {
       background: var(--yellow);
+      padding: 1.8rem 3%;
+    }
+    .categorias-track-wrap { position: relative; }
+    .categorias-track {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: .5rem;
+    }
+    .cat-item {
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      cursor: pointer;
+      padding: .5rem;
+      border-radius: 16px;
+      transition: background .2s;
+    }
+    .cat-item:hover { background: rgba(0,0,0,.06); }
+    .cat-img {
+      width: 100%;
+      aspect-ratio: 1;
+      background: transparent;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
       justify-content: center;
-      flex-wrap: wrap;
-      gap: 0;
+      overflow: hidden;
+      transition: transform .2s;
     }
-    .number-item {
-      flex: 1 1 180px;
+    .cat-img img {
+      width: 85%;
+      height: 85%;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+    }
+    .cat-item:hover .cat-img { transform: translateY(-3px); }
+    .cat-label {
+      font-size: .78rem;
+      font-weight: 800;
+      color: var(--dark);
       text-align: center;
-      padding: 2.2rem 1rem;
-      border-right: 1px solid rgba(0,0,0,.1);
-      transition: background .25s;
     }
-    .number-item:last-child { border-right: none; }
-    .number-item:hover { background: rgba(0,0,0,.06); }
-    .number-item .num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3rem;
-      color: var(--red);
-      line-height: 1;
+    .cat-arrow { display: none; }
+
+    @media(max-width: 768px) {
+      .categorias-track {
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        gap: .8rem;
+        padding-bottom: .5rem;
+      }
+      .categorias-track::-webkit-scrollbar { display: none; }
+      .cat-item { flex-shrink: 0; width: 90px; }
+      .cat-img { width: 90px; height: 90px; }
     }
-    .number-item p { color: var(--dark); font-size: .9rem; margin-top:.3rem; font-weight: 700; }
+
 
     /* ── SECTION GENERIC ── */
     section { padding: 5rem 5%; }
@@ -519,23 +557,43 @@
   </div>
 </section>
 
-<!-- NÚMEROS -->
-<div class="numbers">
-  <div class="number-item">
-    <div class="num">+10</div>
-    <p>Lojas</p>
-  </div>
-  <div class="number-item">
-    <div class="num">+200mil</div>
-    <p>Seguidores nas redes sociais</p>
-  </div>
-  <div class="number-item">
-    <div class="num">+1mil</div>
-    <p>Produtos</p>
-  </div>
-  <div class="number-item">
-    <div class="num">+500</div>
-    <p>Clientes por dia</p>
+<!-- CATEGORIAS -->
+<div class="categorias-section">
+  <div class="categorias-track-wrap">
+    <div class="categorias-track" id="catTrack">
+      <div class="cat-item">
+        <div class="cat-img"><img src="assets/VTR310.1.webp" alt="Ventiladores"></div>
+        <span class="cat-label">Ventiladores</span>
+      </div>
+      <div class="cat-item">
+        <div class="cat-img"><img src="assets/7460241013_1SZ.webp" alt="Panelas e Frigideiras"></div>
+        <span class="cat-label">Panelas e Frigideiras</span>
+      </div>
+      <div class="cat-item">
+        <div class="cat-img"><img src="assets/61hzuoXwjqL.jpg" alt="Informática"></div>
+        <span class="cat-label">Informática</span>
+      </div>
+      <div class="cat-item">
+        <div class="cat-img"><img src="assets/26600_49083-jogo-de-ferramentas-110-peas-com-maleta-maferpro_z1_639154796859279916.webp" alt="Ferramentas"></div>
+        <span class="cat-label">Ferramentas</span>
+      </div>
+      <div class="cat-item">
+        <div class="cat-img"><img src="assets/varal_chao_maxi_6009_mor_1.webp" alt="Utilidades Domésticas"></div>
+        <span class="cat-label">Utilidades Domésticas</span>
+      </div>
+      <div class="cat-item">
+        <div class="cat-img"><img src="assets/110233-1.webp" alt="Praia"></div>
+        <span class="cat-label">Praia</span>
+      </div>
+      <div class="cat-item">
+        <div class="cat-img"><img src="assets/banheiro.webp" alt="Banheiro"></div>
+        <span class="cat-label">Banheiro</span>
+      </div>
+      <div class="cat-item">
+        <div class="cat-img"><img src="assets/material.jpg" alt="Material"></div>
+        <span class="cat-label">Material</span>
+      </div>
+    </div>
   </div>
 </div>
 
