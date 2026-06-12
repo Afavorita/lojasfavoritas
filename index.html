@@ -31,7 +31,7 @@
 
     /* ── NAVBAR ── */
     nav {
-      background: var(--red);
+      background: var(--yellow);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -79,16 +79,16 @@
     .nav-links a {
       text-decoration: none;
       font-weight: 700;
-      color: rgba(255,255,255,.85);
+      color: var(--dark);
       font-size: .95rem;
       position: relative;
       transition: color .2s;
     }
-    .nav-links a:hover { color: var(--yellow); }
+    .nav-links a:hover { color: var(--red); }
     .nav-links a::after {
       content:'';
       position:absolute; bottom:-4px; left:0; right:0;
-      height:2px; background:var(--yellow);
+      height:2px; background:var(--red);
       transform:scaleX(0);
       transition:transform .25s;
     }
@@ -96,13 +96,13 @@
     .nav-social { display:flex; gap:.7rem; }
     .nav-social a {
       width:34px; height:34px; border-radius:50%;
-      background: var(--dark);
+      background: var(--red);
       display:flex; align-items:center; justify-content:center;
       color:#fff; text-decoration:none;
       transition: background .2s, transform .2s;
     }
-    .nav-social a:hover { background: var(--yellow); transform:scale(1.1); }
-    .nav-social a:hover svg { fill: var(--dark); }
+    .nav-social a:hover { background: var(--dark); transform:scale(1.1); }
+    .nav-social a:hover svg { fill: #fff; }
     .nav-social svg { width:16px; height:16px; fill:#fff; }
 
     /* ── HERO ── */
