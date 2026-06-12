@@ -188,6 +188,91 @@
       to   { opacity:1; transform:translateY(0);    }
     }
 
+    /* ── CARDS PROMOCIONAIS ── */
+    .promo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      padding: 8px;
+      background: #f5f5f5;
+    }
+    .promo-card {
+      border-radius: 14px;
+      padding: 1.6rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+      min-height: 140px;
+      cursor: pointer;
+      transition: filter .2s;
+    }
+    .promo-card:hover { filter: brightness(1.08); }
+    .promo-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      color: #fff;
+      line-height: 1.1;
+      letter-spacing: 1px;
+    }
+    .promo-sub {
+      font-size: clamp(.72rem, 1.2vw, .88rem);
+      color: rgba(255,255,255,.8);
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    @media(max-width:640px){
+      .promo-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ── TIKTOK BANNER ── */
+    .tiktok-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--yellow);
+      padding: 1.2rem 5%;
+      gap: 1.5rem;
+      text-decoration: none;
+      transition: filter .2s;
+    }
+    .tiktok-banner:hover { filter: brightness(.97); }
+    .tiktok-banner-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.25;
+    }
+    .tiktok-banner-text span {
+      font-size: clamp(.9rem, 2vw, 1.1rem);
+      color: var(--dark);
+      font-weight: 700;
+    }
+    .tiktok-banner-text strong {
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      color: var(--dark);
+      font-weight: 900;
+    }
+    .tiktok-banner-logo {
+      height: clamp(48px, 8vw, 80px);
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .tiktok-banner-btn {
+      background: var(--red);
+      color: #fff;
+      font-weight: 900;
+      font-size: clamp(.9rem, 1.5vw, 1.1rem);
+      padding: .75rem 2rem;
+      border-radius: 8px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background .2s;
+    }
+    .tiktok-banner:hover .tiktok-banner-btn { background: var(--red-dk); }
+    @media(max-width:560px){
+      .tiktok-banner { flex-wrap: wrap; justify-content: center; text-align: center; }
+      .tiktok-banner-logo { height: 48px; }
+    }
+
     /* ── CATEGORIAS ── */
     .categorias-section {
       background: #fff;
@@ -233,6 +318,13 @@
       transform: translateY(-4px);
       box-shadow: 0 8px 20px rgba(0,0,0,.12);
     }
+    .cat-title {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 1rem;
+    }
+    .cat-title strong { color: var(--red); }
     .cat-label {
       font-size: .75rem;
       font-weight: 800;
@@ -355,103 +447,6 @@
     }
     .loja-map-btn:hover { color: var(--red-dk); }
 
-    /* ── TIKTOK SHOP ── */
-    .tiktok-section {
-      background: linear-gradient(135deg, #010101 60%, #1a1a2e);
-      padding: 3.5rem 5%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 3rem;
-      flex-wrap: wrap;
-      position: relative;
-      overflow: hidden;
-    }
-    .tiktok-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 80% 50%, rgba(255,214,0,.08) 0%, transparent 65%);
-      pointer-events: none;
-    }
-    .tiktok-logo {
-      width: clamp(120px, 18vw, 200px);
-      flex-shrink: 0;
-      position: relative;
-      z-index: 1;
-    }
-    .tiktok-text {
-      max-width: 500px;
-      position: relative;
-      z-index: 1;
-    }
-    .tiktok-tag {
-      display: inline-block;
-      background: var(--yellow);
-      color: var(--dark);
-      font-size: .75rem;
-      font-weight: 900;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      padding: .3rem .9rem;
-      border-radius: 50px;
-      margin-bottom: .9rem;
-    }
-    .tiktok-text h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.4rem, 6vw, 4rem);
-      color: #fff;
-      letter-spacing: 2px;
-      line-height: 1;
-      margin-bottom: .8rem;
-    }
-    .tiktok-text h2 span { color: var(--yellow); }
-    .tiktok-text p {
-      color: rgba(255,255,255,.65);
-      font-size: .95rem;
-      line-height: 1.7;
-      margin-bottom: 1.8rem;
-    }
-    .tiktok-perks {
-      display: flex;
-      gap: 1.2rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.8rem;
-    }
-    .tiktok-perk {
-      display: flex;
-      align-items: center;
-      gap: .4rem;
-      font-size: .82rem;
-      font-weight: 700;
-      color: rgba(255,255,255,.8);
-    }
-    .tiktok-perk .dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--yellow);
-      flex-shrink: 0;
-    }
-    .btn-tiktok {
-      display: inline-flex;
-      align-items: center;
-      gap: .6rem;
-      background: var(--yellow);
-      color: var(--dark);
-      font-weight: 900;
-      font-size: 1.05rem;
-      padding: .9rem 2.2rem;
-      border-radius: 50px;
-      text-decoration: none;
-      transition: transform .2s, box-shadow .2s;
-      box-shadow: 0 6px 24px rgba(255,214,0,.35);
-    }
-    .btn-tiktok:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(255,214,0,.5); }
-    @media(max-width:640px){
-      .tiktok-section { gap: 1.8rem; text-align: center; }
-      .tiktok-logo { width: 110px; }
-      .tiktok-perks { justify-content: center; }
-    }
 
     /* ── QUEM SOMOS ── */
     .quem-wrap {
@@ -614,8 +609,39 @@
   </div>
 </section>
 
+<!-- CARDS PROMOCIONAIS -->
+<div class="promo-grid">
+  <div class="promo-card" style="background:#C8102E;">
+    <span class="promo-label">torcida favoritas</span>
+    <span class="promo-sub">para quem ama copa</span>
+  </div>
+  <div class="promo-card" style="background:#8B1A1A;">
+    <span class="promo-label">arraiá</span>
+    <span class="promo-sub">porque amamos comemorar São João</span>
+  </div>
+  <div class="promo-card" style="background:#6B2D2D;">
+    <span class="promo-label">tudo para facilitar</span>
+    <span class="promo-sub">o dia a dia da dona de casa</span>
+  </div>
+  <div class="promo-card" style="background:#3D1515;">
+    <span class="promo-label">inverno</span>
+    <span class="promo-sub">para aproveitar muito bem o friozinho</span>
+  </div>
+</div>
+
+<!-- TIKTOK SHOP BANNER -->
+<a href="https://tiktok.com/@lojasfavoritas" target="_blank" class="tiktok-banner">
+  <div class="tiktok-banner-text">
+    <span>chegamos no digital</span>
+    <strong>para te atender melhor!</strong>
+  </div>
+  <img src="assets/9.png" alt="TikTok Shop" class="tiktok-banner-logo">
+  <div class="tiktok-banner-btn">aproveite</div>
+</a>
+
 <!-- CATEGORIAS -->
 <div class="categorias-section">
+  <p class="cat-title">a Favorita tem <strong>tuuuudo</strong> para sua casa</p>
   <div class="categorias-track-wrap">
     <button class="cat-arrow left" onclick="document.getElementById('catTrack').scrollBy({left:-300,behavior:'smooth'})">‹</button>
     <div class="categorias-track" id="catTrack">
@@ -653,24 +679,6 @@
       </div>
     </div>
     <button class="cat-arrow right" onclick="document.getElementById('catTrack').scrollBy({left:300,behavior:'smooth'})">›</button>
-  </div>
-</div>
-
-<!-- TIKTOK SHOP -->
-<div class="tiktok-section">
-  <img src="assets/9.png" alt="TikTok Shop" class="tiktok-logo">
-  <div class="tiktok-text">
-    <span class="tiktok-tag">Venda Online Oficial</span>
-    <h2>Compre pela<br><span>TikTok Shop</span></h2>
-    <p>Nossos produtos disponíveis para entrega em todo o Brasil. Compre com segurança diretamente pelo TikTok e receba em casa!</p>
-    <div class="tiktok-perks">
-      <div class="tiktok-perk"><div class="dot"></div>Entrega para todo o Brasil</div>
-      <div class="tiktok-perk"><div class="dot"></div>Compra 100% segura</div>
-      <div class="tiktok-perk"><div class="dot"></div>Suporte pelo chat</div>
-    </div>
-    <a href="https://tiktok.com/@lojasfavoritas" target="_blank" class="btn-tiktok">
-      Comprar agora →
-    </a>
   </div>
 </div>
 
