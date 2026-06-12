@@ -217,8 +217,9 @@
     .cat-img {
       width: 110px;
       height: 110px;
-      background: var(--yellow);
+      background: transparent;
       border-radius: 20px;
+      border: 2px solid #eee;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -596,6 +597,14 @@
       <div class="cat-item">
         <div class="cat-img"><img src="assets/110233-1.webp" alt="Praia"></div>
         <span class="cat-label">Praia</span>
+      </div>
+      <div class="cat-item">
+        <div class="cat-img"><img src="assets/banheiro.webp" alt="Banheiro"></div>
+        <span class="cat-label">Banheiro</span>
+      </div>
+      <div class="cat-item">
+        <div class="cat-img"><img src="assets/material.jpg" alt="Material"></div>
+        <span class="cat-label">Material</span>
       </div>
     </div>
     <button class="cat-arrow right" onclick="document.getElementById('catTrack').scrollBy({left:300,behavior:'smooth'})">›</button>
