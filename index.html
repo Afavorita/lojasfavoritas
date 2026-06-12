@@ -190,63 +190,76 @@
 
     /* ── CATEGORIAS ── */
     .categorias-section {
-      background: var(--yellow);
-      padding: 1.8rem 3%;
+      background: #fff;
+      padding: 1.2rem 1rem 1.4rem;
+      position: relative;
     }
     .categorias-track-wrap { position: relative; }
     .categorias-track {
-      display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      gap: .5rem;
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      padding: .4rem .2rem .6rem;
+      justify-content: center;
     }
+    .categorias-track::-webkit-scrollbar { display: none; }
     .cat-item {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: .5rem;
+      flex-shrink: 0;
       cursor: pointer;
-      padding: .5rem;
-      border-radius: 16px;
-      transition: background .2s;
     }
-    .cat-item:hover { background: rgba(0,0,0,.06); }
     .cat-img {
-      width: 100%;
-      aspect-ratio: 1;
-      background: transparent;
-      border-radius: 14px;
+      width: 100px;
+      height: 100px;
+      background: var(--yellow);
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      transition: transform .2s;
+      transition: transform .2s, box-shadow .2s;
     }
     .cat-img img {
-      width: 85%;
-      height: 85%;
+      width: 78%;
+      height: 78%;
       object-fit: contain;
     }
-    .cat-item:hover .cat-img { transform: translateY(-3px); }
-    .cat-label {
-      font-size: .78rem;
-      font-weight: 800;
-      color: var(--dark);
-      text-align: center;
+    .cat-item:hover .cat-img {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,.12);
     }
-    .cat-arrow { display: none; }
+    .cat-label {
+      font-size: .75rem;
+      font-weight: 800;
+      color: #333;
+      text-align: center;
+      max-width: 90px;
+    }
+    .cat-arrow {
+      position: absolute;
+      top: 50%; transform: translateY(-60%);
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 8px rgba(0,0,0,.1);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 2;
+      font-size: 1.1rem; color: #333;
+      transition: background .2s;
+    }
+    .cat-arrow:hover { background: var(--yellow); border-color: var(--yellow); }
+    .cat-arrow.left { left: 0; }
+    .cat-arrow.right { right: 0; }
 
     @media(max-width: 768px) {
-      .categorias-track {
-        display: flex;
-        overflow-x: auto;
-        scroll-behavior: smooth;
-        scrollbar-width: none;
-        gap: .8rem;
-        padding-bottom: .5rem;
-      }
-      .categorias-track::-webkit-scrollbar { display: none; }
-      .cat-item { flex-shrink: 0; width: 90px; }
-      .cat-img { width: 90px; height: 90px; }
+      .categorias-track { justify-content: flex-start; }
+      .cat-img { width: 82px; height: 82px; }
     }
 
 
@@ -344,34 +357,80 @@
 
     /* ── TIKTOK SHOP ── */
     .tiktok-section {
-      background: #010101;
-      padding: 4rem 5%;
+      background: linear-gradient(135deg, #010101 60%, #1a1a2e);
+      padding: 3.5rem 5%;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 4rem;
+      gap: 3rem;
       flex-wrap: wrap;
+      position: relative;
+      overflow: hidden;
+    }
+    .tiktok-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 80% 50%, rgba(255,214,0,.08) 0%, transparent 65%);
+      pointer-events: none;
     }
     .tiktok-logo {
-      width: clamp(140px, 20vw, 220px);
+      width: clamp(120px, 18vw, 200px);
       flex-shrink: 0;
-      filter: drop-shadow(0 0 30px rgba(255,255,255,.15));
+      position: relative;
+      z-index: 1;
     }
-    .tiktok-text { max-width: 480px; }
+    .tiktok-text {
+      max-width: 500px;
+      position: relative;
+      z-index: 1;
+    }
+    .tiktok-tag {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--dark);
+      font-size: .75rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: .3rem .9rem;
+      border-radius: 50px;
+      margin-bottom: .9rem;
+    }
     .tiktok-text h2 {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-size: clamp(2.4rem, 6vw, 4rem);
       color: #fff;
       letter-spacing: 2px;
-      line-height: 1.05;
-      margin-bottom: 1rem;
+      line-height: 1;
+      margin-bottom: .8rem;
     }
     .tiktok-text h2 span { color: var(--yellow); }
     .tiktok-text p {
-      color: rgba(255,255,255,.75);
-      font-size: 1rem;
-      line-height: 1.75;
+      color: rgba(255,255,255,.65);
+      font-size: .95rem;
+      line-height: 1.7;
       margin-bottom: 1.8rem;
+    }
+    .tiktok-perks {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.8rem;
+    }
+    .tiktok-perk {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .82rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.8);
+    }
+    .tiktok-perk .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--yellow);
+      flex-shrink: 0;
     }
     .btn-tiktok {
       display: inline-flex;
@@ -380,17 +439,18 @@
       background: var(--yellow);
       color: var(--dark);
       font-weight: 900;
-      font-size: 1rem;
-      padding: .85rem 2rem;
+      font-size: 1.05rem;
+      padding: .9rem 2.2rem;
       border-radius: 50px;
       text-decoration: none;
       transition: transform .2s, box-shadow .2s;
-      box-shadow: 0 6px 24px rgba(255,214,0,.3);
+      box-shadow: 0 6px 24px rgba(255,214,0,.35);
     }
-    .btn-tiktok:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(255,214,0,.4); }
-    @media(max-width:600px){
-      .tiktok-section { gap: 2rem; text-align: center; }
-      .tiktok-logo { width: 120px; }
+    .btn-tiktok:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(255,214,0,.5); }
+    @media(max-width:640px){
+      .tiktok-section { gap: 1.8rem; text-align: center; }
+      .tiktok-logo { width: 110px; }
+      .tiktok-perks { justify-content: center; }
     }
 
     /* ── QUEM SOMOS ── */
@@ -557,6 +617,7 @@
 <!-- CATEGORIAS -->
 <div class="categorias-section">
   <div class="categorias-track-wrap">
+    <button class="cat-arrow left" onclick="document.getElementById('catTrack').scrollBy({left:-300,behavior:'smooth'})">‹</button>
     <div class="categorias-track" id="catTrack">
       <div class="cat-item">
         <div class="cat-img"><img src="assets/1.png" alt="Ventiladores"></div>
@@ -591,6 +652,7 @@
         <span class="cat-label">Panelas e Frigideiras</span>
       </div>
     </div>
+    <button class="cat-arrow right" onclick="document.getElementById('catTrack').scrollBy({left:300,behavior:'smooth'})">›</button>
   </div>
 </div>
 
@@ -598,10 +660,16 @@
 <div class="tiktok-section">
   <img src="assets/9.png" alt="TikTok Shop" class="tiktok-logo">
   <div class="tiktok-text">
-    <h2>Compre pelo<br><span>TikTok Shop</span></h2>
-    <p>Nossas vendas online estão sendo realizadas pelo <strong style="color:#fff;">TikTok Shop</strong>. Acesse nossa loja, escolha seus produtos e receba em casa com praticidade e segurança!</p>
+    <span class="tiktok-tag">Venda Online Oficial</span>
+    <h2>Compre pela<br><span>TikTok Shop</span></h2>
+    <p>Nossos produtos disponíveis para entrega em todo o Brasil. Compre com segurança diretamente pelo TikTok e receba em casa!</p>
+    <div class="tiktok-perks">
+      <div class="tiktok-perk"><div class="dot"></div>Entrega para todo o Brasil</div>
+      <div class="tiktok-perk"><div class="dot"></div>Compra 100% segura</div>
+      <div class="tiktok-perk"><div class="dot"></div>Suporte pelo chat</div>
+    </div>
     <a href="https://tiktok.com/@lojasfavoritas" target="_blank" class="btn-tiktok">
-      Acessar a loja →
+      Comprar agora →
     </a>
   </div>
 </div>
