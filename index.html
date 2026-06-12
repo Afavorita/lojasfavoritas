@@ -10,11 +10,12 @@
       --red:     #D62B2B;
       --red-dk:  #b01f1f;
       --yellow:  #FFD600;
-      --dark:    #111111;
-      --dark2:   #1e1e1e;
+      --yellow-dk: #e6c000;
+      --dark:    #1a0a0a;
+      --dark2:   #2a0f0f;
       --white:   #ffffff;
-      --gray:    #f5f5f5;
-      --text:    #1a1a1a;
+      --gray:    #fff8e1;
+      --text:    #1a0a0a;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,15 +31,15 @@
 
     /* ── TOP BAR ── */
     .topbar {
-      background: var(--dark);
-      color: #ccc;
+      background: var(--red);
+      color: rgba(255,255,255,.9);
       font-size: .8rem;
       display: flex;
       justify-content: center;
       gap: 2rem;
       padding: .45rem 1rem;
     }
-    .topbar a { color: #ccc; text-decoration: none; }
+    .topbar a { color: rgba(255,255,255,.9); text-decoration: none; }
     .topbar a:hover { color: var(--yellow); }
     .topbar svg { width:16px; height:16px; vertical-align:middle; margin-right:4px; }
 
@@ -114,7 +115,8 @@
       color:#fff; text-decoration:none;
       transition: background .2s, transform .2s;
     }
-    .nav-social a:hover { background: var(--red); transform:scale(1.1); }
+    .nav-social a:hover { background: var(--yellow); transform:scale(1.1); }
+    .nav-social a:hover svg { fill: var(--dark); }
     .nav-social svg { width:16px; height:16px; fill:#fff; }
 
     /* ── HERO ── */
@@ -198,7 +200,7 @@
 
     /* ── NÚMEROS ── */
     .numbers {
-      background: var(--dark);
+      background: var(--yellow);
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
@@ -208,18 +210,18 @@
       flex: 1 1 180px;
       text-align: center;
       padding: 2.2rem 1rem;
-      border-right: 1px solid rgba(255,255,255,.08);
+      border-right: 1px solid rgba(0,0,0,.1);
       transition: background .25s;
     }
     .number-item:last-child { border-right: none; }
-    .number-item:hover { background: rgba(255,255,255,.04); }
+    .number-item:hover { background: rgba(0,0,0,.06); }
     .number-item .num {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 3rem;
-      color: var(--yellow);
+      color: var(--red);
       line-height: 1;
     }
-    .number-item p { color: rgba(255,255,255,.7); font-size: .9rem; margin-top:.3rem; }
+    .number-item p { color: var(--dark); font-size: .9rem; margin-top:.3rem; font-weight: 700; }
 
     /* ── SECTION GENERIC ── */
     section { padding: 5rem 5%; }
@@ -232,6 +234,8 @@
       margin-bottom: .5rem;
     }
     .section-title span { color: var(--red); }
+    .section-title.on-red { color: var(--yellow); }
+    .section-title.on-red span { color: var(--white); }
     .section-sub {
       text-align:center;
       color: #777;
@@ -259,7 +263,7 @@
       transition: transform .25s, box-shadow .25s;
       cursor: pointer;
     }
-    .card:hover { transform:translateY(-6px); box-shadow: 0 16px 40px rgba(214,43,43,.15); }
+    .card:hover { transform:translateY(-6px); box-shadow: 0 16px 40px rgba(214,43,43,.25); border-color: var(--yellow); }
     .card-img {
       width: 100%;
       aspect-ratio: 1;
@@ -279,11 +283,12 @@
       align-items: center;
     }
     .lojas-img {
-      background: linear-gradient(135deg, #ffe5e5, #fff9c0);
+      background: linear-gradient(135deg, var(--red), var(--red-dk));
       border-radius: 24px;
       aspect-ratio: 4/3;
       display:flex; align-items:center; justify-content:center;
       font-size:5rem;
+      box-shadow: 0 12px 40px rgba(214,43,43,.3);
     }
     .lojas-text h2 {
       font-family: 'Bebas Neue', sans-serif;
@@ -306,7 +311,11 @@
     .btn-pink:hover { background: var(--red-dk); transform:translateY(-2px); }
 
     /* ── PAGAMENTO ── */
-    .pag-bg { background: var(--gray); }
+    .pag-bg { background: var(--red); }
+    .pag-bg .section-title { color: var(--yellow); }
+    .pag-bg .section-title span { color: var(--white); }
+    .pag-bg .section-sub { color: rgba(255,255,255,.8); }
+    .pag-bg .divider { background: var(--yellow); }
     .pag-cards {
       display:flex;
       flex-wrap:wrap;
@@ -315,18 +324,18 @@
       margin-top:1rem;
     }
     .pag-card {
-      background:#fff;
+      background: var(--yellow);
       border-radius:16px;
       padding:2rem 2.5rem;
       text-align:center;
       width:200px;
-      box-shadow:0 4px 20px rgba(0,0,0,.06);
-      transition:transform .2s;
+      box-shadow:0 4px 20px rgba(0,0,0,.2);
+      transition:transform .2s, background .2s;
     }
-    .pag-card:hover { transform:translateY(-4px); }
+    .pag-card:hover { transform:translateY(-4px); background: #fff; }
     .pag-card .icon { font-size:2.5rem; margin-bottom:.7rem; }
     .pag-card h3 { font-size:1rem; font-weight:800; color:var(--dark); margin-bottom:.4rem; }
-    .pag-card p  { font-size:.82rem; color:#777; }
+    .pag-card p  { font-size:.82rem; color:#555; }
 
     /* ── QUEM SOMOS ── */
     .quem-wrap {
@@ -336,11 +345,12 @@
       align-items:center;
     }
     .quem-img {
-      background: linear-gradient(135deg, var(--red), var(--yellow));
+      background: linear-gradient(135deg, var(--yellow), var(--yellow-dk));
       border-radius:24px;
       aspect-ratio:4/3;
       display:flex; align-items:center; justify-content:center;
       font-size:5rem;
+      box-shadow: 0 12px 40px rgba(255,214,0,.4);
     }
     .quem-text h2 {
       font-family:'Bebas Neue',sans-serif;
@@ -352,8 +362,8 @@
 
     /* ── FOOTER ── */
     footer {
-      background: var(--dark);
-      color: rgba(255,255,255,.7);
+      background: var(--red-dk);
+      color: rgba(255,255,255,.8);
       padding: 3rem 5% 1.5rem;
     }
     .footer-grid {
@@ -363,6 +373,7 @@
       margin-bottom:2.5rem;
     }
     .footer-brand .logo-placeholder span { color: var(--yellow); }
+    .footer-col h4 { color: var(--yellow); }
     .footer-brand p { margin-top:1rem; font-size:.88rem; line-height:1.7; }
     .footer-social { display:flex; gap:.6rem; margin-top:1rem; }
     .footer-social a {
@@ -372,7 +383,8 @@
       color:#fff; text-decoration:none;
       transition:background .2s;
     }
-    .footer-social a:hover { background:var(--red); }
+    .footer-social a:hover { background:var(--yellow); }
+    .footer-social a:hover svg { fill: var(--dark); }
     .footer-social svg { width:16px;height:16px;fill:#fff; }
     .footer-col h4 {
       font-size:.9rem;
@@ -391,6 +403,9 @@
     }
     .footer-col ul a:hover { color:var(--yellow); }
     .footer-bottom {
+      border-top:1px solid rgba(255,255,255,.2);
+    }
+    .footer-bottom {
       border-top:1px solid rgba(255,255,255,.1);
       padding-top:1.2rem;
       text-align:center;
@@ -403,8 +418,8 @@
       position:fixed;
       bottom:2rem; right:2rem;
       width:44px;height:44px;
-      background:var(--red);
-      color:#fff; border:none; border-radius:50%;
+      background:var(--yellow);
+      color:var(--dark); border:none; border-radius:50%;
       font-size:1.3rem;
       cursor:pointer;
       box-shadow:0 4px 16px rgba(0,0,0,.2);
@@ -434,7 +449,7 @@
 
 <!-- TOP BAR -->
 <div class="topbar">
-  <a href="https://instagram.com" target="_blank">
+  <a href="https://instagram.com/favoritas.lojas" target="_blank">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
     Instagram
   </a>
@@ -442,7 +457,7 @@
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
     Facebook
   </a>
-  <a href="https://tiktok.com" target="_blank">
+  <a href="https://tiktok.com/@lojasfavoritas" target="_blank">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
     TikTok
   </a>
@@ -466,13 +481,13 @@
     <li><a href="#contato">Contato</a></li>
   </ul>
   <div class="nav-social">
-    <a href="https://instagram.com" target="_blank" title="Instagram">
+    <a href="https://instagram.com/favoritas.lojas" target="_blank" title="Instagram">
       <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
     </a>
     <a href="https://facebook.com" target="_blank" title="Facebook">
       <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
     </a>
-    <a href="https://tiktok.com" target="_blank" title="TikTok">
+    <a href="https://tiktok.com/@lojasfavoritas" target="_blank" title="TikTok">
       <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
     </a>
   </div>
@@ -635,13 +650,13 @@
       </div>
       <p>A loja favorita da sua família. Qualidade, preço justo e carinho em cada atendimento.</p>
       <div class="footer-social">
-        <a href="https://instagram.com" target="_blank">
+        <a href="https://instagram.com/favoritas.lojas" target="_blank">
           <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         </a>
         <a href="https://facebook.com" target="_blank">
           <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         </a>
-        <a href="https://tiktok.com" target="_blank">
+        <a href="https://tiktok.com/@lojasfavoritas" target="_blank">
           <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
         </a>
       </div>
