@@ -10,11 +10,12 @@
       --red:     #D62B2B;
       --red-dk:  #b01f1f;
       --yellow:  #FFD600;
-      --dark:    #111111;
-      --dark2:   #1e1e1e;
+      --yellow-dk: #e6c000;
+      --dark:    #1a0a0a;
+      --dark2:   #2a0f0f;
       --white:   #ffffff;
-      --gray:    #f5f5f5;
-      --text:    #1a1a1a;
+      --gray:    #fff8e1;
+      --text:    #1a0a0a;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,23 +29,9 @@
       overflow-x: hidden;
     }
 
-    /* ── TOP BAR ── */
-    .topbar {
-      background: var(--dark);
-      color: #ccc;
-      font-size: .8rem;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      padding: .45rem 1rem;
-    }
-    .topbar a { color: #ccc; text-decoration: none; }
-    .topbar a:hover { color: var(--yellow); }
-    .topbar svg { width:16px; height:16px; vertical-align:middle; margin-right:4px; }
-
     /* ── NAVBAR ── */
     nav {
-      background: var(--red);
+      background: var(--yellow);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -92,16 +79,16 @@
     .nav-links a {
       text-decoration: none;
       font-weight: 700;
-      color: rgba(255,255,255,.85);
+      color: var(--dark);
       font-size: .95rem;
       position: relative;
       transition: color .2s;
     }
-    .nav-links a:hover { color: var(--yellow); }
+    .nav-links a:hover { color: var(--red); }
     .nav-links a::after {
       content:'';
       position:absolute; bottom:-4px; left:0; right:0;
-      height:2px; background:var(--yellow);
+      height:2px; background:var(--red);
       transform:scaleX(0);
       transition:transform .25s;
     }
@@ -109,12 +96,13 @@
     .nav-social { display:flex; gap:.7rem; }
     .nav-social a {
       width:34px; height:34px; border-radius:50%;
-      background: var(--dark);
+      background: var(--red);
       display:flex; align-items:center; justify-content:center;
       color:#fff; text-decoration:none;
       transition: background .2s, transform .2s;
     }
-    .nav-social a:hover { background: var(--red); transform:scale(1.1); }
+    .nav-social a:hover { background: var(--dark); transform:scale(1.1); }
+    .nav-social a:hover svg { fill: #fff; }
     .nav-social svg { width:16px; height:16px; fill:#fff; }
 
     /* ── HERO ── */
@@ -132,17 +120,21 @@
     /* Vídeo de fundo */
     .hero-video {
       position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      object-fit: contain;
-      background: var(--dark);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100vw;
+      height: 56.25vw;   /* proporção 16:9 */
+      min-height: 100%;
+      min-width: 177.78vh; /* proporção 16:9 */
+      border: none;
       z-index: 0;
     }
     /* Overlay escuro sobre o vídeo para legibilidade */
     .hero-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,.52);
+      background: rgba(0,0,0,.32);
       z-index: 0;
     }
     .hero-content { position:relative; z-index:1; max-width:560px; }
@@ -198,7 +190,7 @@
 
     /* ── NÚMEROS ── */
     .numbers {
-      background: var(--dark);
+      background: var(--yellow);
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
@@ -208,18 +200,18 @@
       flex: 1 1 180px;
       text-align: center;
       padding: 2.2rem 1rem;
-      border-right: 1px solid rgba(255,255,255,.08);
+      border-right: 1px solid rgba(0,0,0,.1);
       transition: background .25s;
     }
     .number-item:last-child { border-right: none; }
-    .number-item:hover { background: rgba(255,255,255,.04); }
+    .number-item:hover { background: rgba(0,0,0,.06); }
     .number-item .num {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 3rem;
-      color: var(--yellow);
+      color: var(--red);
       line-height: 1;
     }
-    .number-item p { color: rgba(255,255,255,.7); font-size: .9rem; margin-top:.3rem; }
+    .number-item p { color: var(--dark); font-size: .9rem; margin-top:.3rem; font-weight: 700; }
 
     /* ── SECTION GENERIC ── */
     section { padding: 5rem 5%; }
@@ -232,6 +224,8 @@
       margin-bottom: .5rem;
     }
     .section-title span { color: var(--red); }
+    .section-title.on-red { color: var(--yellow); }
+    .section-title.on-red span { color: var(--white); }
     .section-sub {
       text-align:center;
       color: #777;
@@ -245,31 +239,58 @@
       border-radius:2px;
     }
 
-    /* ── DESTAQUES / CARDS ── */
-    .cards-grid {
+    /* ── ONDE COMPRAR ── */
+    .onde-wrap {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-template-columns: 1fr 1fr;
       gap: 1.5rem;
+      max-width: 860px;
+      margin: 0 auto;
     }
-    .card {
-      background: var(--white);
-      border: 1px solid #eee;
-      border-radius: 16px;
-      overflow: hidden;
-      transition: transform .25s, box-shadow .25s;
-      cursor: pointer;
+    .onde-card {
+      border-radius: 20px;
+      padding: 2rem 2rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: .8rem;
     }
-    .card:hover { transform:translateY(-6px); box-shadow: 0 16px 40px rgba(214,43,43,.15); }
-    .card-img {
-      width: 100%;
-      aspect-ratio: 1;
-      background: var(--gray);
-      display:flex; align-items:center; justify-content:center;
-      font-size: 3rem;
+    .onde-card.online {
+      background: var(--dark);
+      color: #fff;
     }
-    .card-body { padding: 1rem; }
-    .card-body h3 { font-size:1rem; font-weight:800; margin-bottom:.3rem; }
-    .card-body p  { font-size:.85rem; color:#777; }
+    .onde-card.presencial {
+      background: var(--yellow);
+      color: var(--dark);
+    }
+    .onde-card .onde-icon { font-size: 2.4rem; }
+    .onde-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 1px;
+      line-height: 1.1;
+    }
+    .onde-card.online h3 { color: var(--yellow); }
+    .onde-card.presencial h3 { color: var(--red); }
+    .onde-card p { font-size: .95rem; line-height: 1.7; }
+    .onde-card.online p { color: rgba(255,255,255,.8); }
+    .onde-card.presencial p { color: #333; }
+    .onde-card .onde-badge {
+      display: inline-block;
+      background: var(--red);
+      color: #fff;
+      font-size: .8rem;
+      font-weight: 800;
+      padding: .35rem 1rem;
+      border-radius: 50px;
+      align-self: flex-start;
+      margin-top: .3rem;
+    }
+    .onde-card.presencial .onde-badge {
+      background: var(--red);
+    }
+    @media(max-width:600px){
+      .onde-wrap { grid-template-columns: 1fr; }
+    }
 
     /* ── LOJAS ── */
     .lojas-wrap {
@@ -279,11 +300,12 @@
       align-items: center;
     }
     .lojas-img {
-      background: linear-gradient(135deg, #ffe5e5, #fff9c0);
+      background: linear-gradient(135deg, var(--red), var(--red-dk));
       border-radius: 24px;
       aspect-ratio: 4/3;
       display:flex; align-items:center; justify-content:center;
       font-size:5rem;
+      box-shadow: 0 12px 40px rgba(214,43,43,.3);
     }
     .lojas-text h2 {
       font-family: 'Bebas Neue', sans-serif;
@@ -305,28 +327,36 @@
     }
     .btn-pink:hover { background: var(--red-dk); transform:translateY(-2px); }
 
-    /* ── PAGAMENTO ── */
-    .pag-bg { background: var(--gray); }
-    .pag-cards {
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap:1.5rem;
-      margin-top:1rem;
+    /* ── ENDEREÇOS ── */
+    .lojas-enderecos {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
     }
-    .pag-card {
-      background:#fff;
-      border-radius:16px;
-      padding:2rem 2.5rem;
-      text-align:center;
-      width:200px;
-      box-shadow:0 4px 20px rgba(0,0,0,.06);
-      transition:transform .2s;
+    .loja-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.4rem 1.6rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      box-shadow: 0 4px 20px rgba(214,43,43,.1);
+      border-left: 5px solid var(--red);
+      transition: transform .2s, box-shadow .2s;
     }
-    .pag-card:hover { transform:translateY(-4px); }
-    .pag-card .icon { font-size:2.5rem; margin-bottom:.7rem; }
-    .pag-card h3 { font-size:1rem; font-weight:800; color:var(--dark); margin-bottom:.4rem; }
-    .pag-card p  { font-size:.82rem; color:#777; }
+    .loja-card:hover { transform: translateX(6px); box-shadow: 0 8px 30px rgba(214,43,43,.2); }
+    .loja-icon { font-size: 2rem; flex-shrink: 0; margin-top: .1rem; }
+    .loja-info h3 { font-size: 1rem; font-weight: 800; color: var(--red); margin-bottom: .4rem; }
+    .loja-info p { font-size: .88rem; color: #555; line-height: 1.6; margin-bottom: .6rem; }
+    .loja-map-btn {
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--red);
+      text-decoration: none;
+      border-bottom: 2px solid var(--yellow);
+      transition: color .2s;
+    }
+    .loja-map-btn:hover { color: var(--red-dk); }
 
     /* ── QUEM SOMOS ── */
     .quem-wrap {
@@ -336,11 +366,12 @@
       align-items:center;
     }
     .quem-img {
-      background: linear-gradient(135deg, var(--red), var(--yellow));
+      background: linear-gradient(135deg, var(--yellow), var(--yellow-dk));
       border-radius:24px;
       aspect-ratio:4/3;
       display:flex; align-items:center; justify-content:center;
       font-size:5rem;
+      box-shadow: 0 12px 40px rgba(255,214,0,.4);
     }
     .quem-text h2 {
       font-family:'Bebas Neue',sans-serif;
@@ -352,8 +383,8 @@
 
     /* ── FOOTER ── */
     footer {
-      background: var(--dark);
-      color: rgba(255,255,255,.7);
+      background: var(--red-dk);
+      color: rgba(255,255,255,.8);
       padding: 3rem 5% 1.5rem;
     }
     .footer-grid {
@@ -363,6 +394,7 @@
       margin-bottom:2.5rem;
     }
     .footer-brand .logo-placeholder span { color: var(--yellow); }
+    .footer-col h4 { color: var(--yellow); }
     .footer-brand p { margin-top:1rem; font-size:.88rem; line-height:1.7; }
     .footer-social { display:flex; gap:.6rem; margin-top:1rem; }
     .footer-social a {
@@ -372,7 +404,8 @@
       color:#fff; text-decoration:none;
       transition:background .2s;
     }
-    .footer-social a:hover { background:var(--red); }
+    .footer-social a:hover { background:var(--yellow); }
+    .footer-social a:hover svg { fill: var(--dark); }
     .footer-social svg { width:16px;height:16px;fill:#fff; }
     .footer-col h4 {
       font-size:.9rem;
@@ -391,6 +424,9 @@
     }
     .footer-col ul a:hover { color:var(--yellow); }
     .footer-bottom {
+      border-top:1px solid rgba(255,255,255,.2);
+    }
+    .footer-bottom {
       border-top:1px solid rgba(255,255,255,.1);
       padding-top:1.2rem;
       text-align:center;
@@ -403,8 +439,8 @@
       position:fixed;
       bottom:2rem; right:2rem;
       width:44px;height:44px;
-      background:var(--red);
-      color:#fff; border:none; border-radius:50%;
+      background:var(--yellow);
+      color:var(--dark); border:none; border-radius:50%;
       font-size:1.3rem;
       cursor:pointer;
       box-shadow:0 4px 16px rgba(0,0,0,.2);
@@ -421,6 +457,7 @@
       .hero { flex-direction:column; text-align:center; padding: 3rem 5%; }
       .hero-mascot { width: clamp(150px, 55vw, 260px); }
       .lojas-wrap, .quem-wrap { grid-template-columns:1fr; }
+      .loja-card:hover { transform: translateY(-4px) translateX(0); }
       .footer-grid { grid-template-columns:1fr 1fr; }
       .numbers { flex-wrap:wrap; }
       .number-item { flex:1 1 40%; border-right:none; border-bottom:1px solid rgba(255,255,255,.08); }
@@ -431,22 +468,6 @@
   </style>
 </head>
 <body>
-
-<!-- TOP BAR -->
-<div class="topbar">
-  <a href="https://instagram.com" target="_blank">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-    Instagram
-  </a>
-  <a href="https://facebook.com" target="_blank">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-    Facebook
-  </a>
-  <a href="https://tiktok.com" target="_blank">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-    TikTok
-  </a>
-</div>
 
 <!-- NAVBAR -->
 <nav>
@@ -466,13 +487,13 @@
     <li><a href="#contato">Contato</a></li>
   </ul>
   <div class="nav-social">
-    <a href="https://instagram.com" target="_blank" title="Instagram">
+    <a href="https://instagram.com/favoritas.lojas" target="_blank" title="Instagram">
       <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
     </a>
-    <a href="https://facebook.com" target="_blank" title="Facebook">
+    <a href="https://www.facebook.com/favoritaslojas" target="_blank" title="Facebook">
       <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
     </a>
-    <a href="https://tiktok.com" target="_blank" title="TikTok">
+    <a href="https://tiktok.com/@lojasfavoritas" target="_blank" title="TikTok">
       <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
     </a>
   </div>
@@ -480,11 +501,11 @@
 
 <!-- HERO -->
 <section class="hero">
-  <!-- 🎬 Substitua "banner.mp4" pelo nome do seu arquivo de vídeo -->
-  <video class="hero-video" autoplay muted loop playsinline poster="">
-    <source src="banner.mp4" type="video/mp4">
-  </video>
-  <!-- Overlay escuro para legibilidade -->
+  <iframe class="hero-video"
+    src="https://www.youtube.com/embed/okFacjdOj6M?autoplay=1&mute=1&loop=1&playlist=okFacjdOj6M&controls=0&showinfo=0&rel=0&modestbranding=1"
+    allow="autoplay; encrypted-media"
+    frameborder="0"
+    style="pointer-events:none;"></iframe>
   <div class="hero-overlay"></div>
 
   <div class="hero-content">
@@ -518,39 +539,23 @@
   </div>
 </div>
 
-<!-- DESTAQUES -->
-<section id="destaques">
-  <h2 class="section-title">Em <span>Destaque</span></h2>
+<!-- ONDE COMPRAR -->
+<section id="onde-comprar">
+  <h2 class="section-title">Onde <span>Comprar</span></h2>
   <div class="divider"></div>
-  <p class="section-sub">Confira os produtos mais amados pelos nossos clientes</p>
-  <div class="cards-grid">
-    <div class="card">
-      <div class="card-img">🛒</div>
-      <div class="card-body">
-        <h3>Mercearia</h3>
-        <p>Tudo que você precisa no dia a dia</p>
-      </div>
+  <p class="section-sub">Escolha a forma que for mais fácil pra você</p>
+  <div class="onde-wrap">
+    <div class="onde-card online">
+      <div class="onde-icon">📱</div>
+      <h3>Compras Online</h3>
+      <p>Nossas vendas online estão sendo realizadas pelo <strong>TikTok Shop</strong>. Acesse nossa loja, escolha seus produtos e receba em casa com praticidade!</p>
+      <a href="https://tiktok.com/@lojasfavoritas" target="_blank" class="onde-badge">Comprar no TikTok Shop →</a>
     </div>
-    <div class="card">
-      <div class="card-img">🧴</div>
-      <div class="card-body">
-        <h3>Higiene & Beleza</h3>
-        <p>Cuidado pessoal com o melhor preço</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-img">🏠</div>
-      <div class="card-body">
-        <h3>Casa & Limpeza</h3>
-        <p>Sua casa sempre limpa e organizada</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-img">🍬</div>
-      <div class="card-body">
-        <h3>Doces & Snacks</h3>
-        <p>Variedade para todos os gostos</p>
-      </div>
+    <div class="onde-card presencial">
+      <div class="onde-icon">🏪</div>
+      <h3>Lojas Presenciais</h3>
+      <p>Visite uma de nossas unidades e aproveite a experiência completa. Compras a partir de <strong>R$&nbsp;100</strong> parcelamos em até <strong>6x sem juros</strong> no cartão!</p>
+      <a href="#lojas" class="onde-badge">Ver endereços →</a>
     </div>
   </div>
 </section>
@@ -558,11 +563,28 @@
 <!-- LOJAS -->
 <section id="lojas" style="background:var(--gray);">
   <div class="lojas-wrap">
-    <div class="lojas-img">📍</div>
+    <div class="lojas-enderecos">
+      <div class="loja-card">
+        <div class="loja-icon">📍</div>
+        <div class="loja-info">
+          <h3>Unidade Ilha do Governador</h3>
+          <p>R. Tâmisa, 12 - Cocotá<br>Rio de Janeiro - RJ<br>CEP 21921-020</p>
+          <a href="https://maps.google.com/?q=R.+Tâmisa,+12,+Cocotá,+Rio+de+Janeiro" target="_blank" class="loja-map-btn">Ver no mapa →</a>
+        </div>
+      </div>
+      <div class="loja-card">
+        <div class="loja-icon">📍</div>
+        <div class="loja-info">
+          <h3>Unidade Penha</h3>
+          <p>R. Plínio de Oliveira, 95 - Penha<br>Rio de Janeiro - RJ<br>CEP 21070-040</p>
+          <a href="https://maps.google.com/?q=R.+Plínio+de+Oliveira,+95,+Penha,+Rio+de+Janeiro" target="_blank" class="loja-map-btn">Ver no mapa →</a>
+        </div>
+      </div>
+    </div>
     <div class="lojas-text">
       <h2>Sempre tem uma<br><span>A Favorita</span> perto de você</h2>
       <p>Com unidades espalhadas pela cidade, garantimos que você sempre tenha acesso à qualidade e ao preço justo que nossa marca oferece. Continuamos expandindo para chegar cada vez mais perto de você!</p>
-      <a href="#contato" class="btn-pink">Encontre uma loja →</a>
+      <a href="#contato" class="btn-pink">Fale com a gente →</a>
     </div>
   </div>
 </section>
@@ -577,35 +599,6 @@
       <a href="#contato" class="btn-pink">Saiba mais →</a>
     </div>
     <div class="quem-img">⭐</div>
-  </div>
-</section>
-
-<!-- PAGAMENTO -->
-<section class="pag-bg">
-  <h2 class="section-title">Formas de <span>Pagamento</span></h2>
-  <div class="divider"></div>
-  <p class="section-sub">Facilidade e praticidade na hora de pagar. Escolha a melhor opção para você.</p>
-  <div class="pag-cards">
-    <div class="pag-card">
-      <div class="icon">💵</div>
-      <h3>Dinheiro</h3>
-      <p>Pagamento à vista em todas as lojas</p>
-    </div>
-    <div class="pag-card">
-      <div class="icon">💳</div>
-      <h3>Cartão de Crédito</h3>
-      <p>Parcele em até 5x sem juros</p>
-    </div>
-    <div class="pag-card">
-      <div class="icon">💳</div>
-      <h3>Cartão de Débito</h3>
-      <p>Aceito em todas as bandeiras</p>
-    </div>
-    <div class="pag-card">
-      <div class="icon">📱</div>
-      <h3>Pix</h3>
-      <p>Rápido, fácil e sem taxas</p>
-    </div>
   </div>
 </section>
 
@@ -629,19 +622,19 @@
   <div class="footer-grid">
     <div class="footer-brand">
       <div class="logo-placeholder">
-        <img src="3310x110.png" alt="Lojas Favoritas" style="height:36px;filter:invert(1);opacity:.85;"
+        <img src="3310x110.png" alt="Lojas Favoritas" style="height:42px;object-fit:contain;"
              onerror="this.style.display='none';this.nextElementSibling.style.display='inline';" />
         <span style="display:none;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--yellow);letter-spacing:2px;">LOJAS FAVORITAS</span>
       </div>
       <p>A loja favorita da sua família. Qualidade, preço justo e carinho em cada atendimento.</p>
       <div class="footer-social">
-        <a href="https://instagram.com" target="_blank">
+        <a href="https://instagram.com/favoritas.lojas" target="_blank">
           <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         </a>
-        <a href="https://facebook.com" target="_blank">
+        <a href="https://www.facebook.com/favoritaslojas" target="_blank">
           <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         </a>
-        <a href="https://tiktok.com" target="_blank">
+        <a href="https://tiktok.com/@lojasfavoritas" target="_blank">
           <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
         </a>
       </div>
