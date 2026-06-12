@@ -130,19 +130,11 @@
       border: none;
       z-index: 0;
     }
-    /* esconde logo do YouTube no canto inferior esquerdo */
-    .hero-yt-mask {
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 160px; height: 60px;
-      background: var(--dark);
-      z-index: 1;
-    }
     /* Overlay escuro sobre o vídeo para legibilidade */
     .hero-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,.52);
+      background: rgba(0,0,0,.32);
       z-index: 0;
     }
     .hero-content { position:relative; z-index:1; max-width:560px; }
@@ -245,6 +237,59 @@
       background: var(--red);
       margin: .6rem auto 2.5rem;
       border-radius:2px;
+    }
+
+    /* ── ONDE COMPRAR ── */
+    .onde-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .onde-card {
+      border-radius: 20px;
+      padding: 2rem 2rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: .8rem;
+    }
+    .onde-card.online {
+      background: var(--dark);
+      color: #fff;
+    }
+    .onde-card.presencial {
+      background: var(--yellow);
+      color: var(--dark);
+    }
+    .onde-card .onde-icon { font-size: 2.4rem; }
+    .onde-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 1px;
+      line-height: 1.1;
+    }
+    .onde-card.online h3 { color: var(--yellow); }
+    .onde-card.presencial h3 { color: var(--red); }
+    .onde-card p { font-size: .95rem; line-height: 1.7; }
+    .onde-card.online p { color: rgba(255,255,255,.8); }
+    .onde-card.presencial p { color: #333; }
+    .onde-card .onde-badge {
+      display: inline-block;
+      background: var(--red);
+      color: #fff;
+      font-size: .8rem;
+      font-weight: 800;
+      padding: .35rem 1rem;
+      border-radius: 50px;
+      align-self: flex-start;
+      margin-top: .3rem;
+    }
+    .onde-card.presencial .onde-badge {
+      background: var(--red);
+    }
+    @media(max-width:600px){
+      .onde-wrap { grid-template-columns: 1fr; }
     }
 
     /* ── LOJAS ── */
@@ -462,7 +507,6 @@
     frameborder="0"
     style="pointer-events:none;"></iframe>
   <div class="hero-overlay"></div>
-  <div class="hero-yt-mask"></div>
 
   <div class="hero-content">
     <h1>A Loja Favorita<br>da Sua Família!</h1>
@@ -494,6 +538,27 @@
     <p>Clientes por dia</p>
   </div>
 </div>
+
+<!-- ONDE COMPRAR -->
+<section id="onde-comprar">
+  <h2 class="section-title">Onde <span>Comprar</span></h2>
+  <div class="divider"></div>
+  <p class="section-sub">Escolha a forma que for mais fácil pra você</p>
+  <div class="onde-wrap">
+    <div class="onde-card online">
+      <div class="onde-icon">📱</div>
+      <h3>Compras Online</h3>
+      <p>Nossas vendas online estão sendo realizadas pelo <strong>TikTok Shop</strong>. Acesse nossa loja, escolha seus produtos e receba em casa com praticidade!</p>
+      <a href="https://tiktok.com/@lojasfavoritas" target="_blank" class="onde-badge">Comprar no TikTok Shop →</a>
+    </div>
+    <div class="onde-card presencial">
+      <div class="onde-icon">🏪</div>
+      <h3>Lojas Presenciais</h3>
+      <p>Visite uma de nossas unidades e aproveite a experiência completa. Compras a partir de <strong>R$&nbsp;100</strong> parcelamos em até <strong>6x sem juros</strong> no cartão!</p>
+      <a href="#lojas" class="onde-badge">Ver endereços →</a>
+    </div>
+  </div>
+</section>
 
 <!-- LOJAS -->
 <section id="lojas" style="background:var(--gray);">
